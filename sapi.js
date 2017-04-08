@@ -1,10 +1,10 @@
 const MESSAGE_PARTS_REGEX = /SAPI\s(\d\.\d)\s+((?:(?:.+)\s+)+)\s+(.+)/;
+const HEADER_SPLIT_REGEX = /^.+:\s+?.+/gm;
 const HEADER_REGEX = /(^.+):\s+?(.+)/;
-const LINE_RETURN_REGEX = /\s/gm;
 
 function parseHeaders(rawHeaders){
 	let out = {};
-	let headers = rawHeaders.split(LINE_RETURN_REGEX);
+	let headers = rawHeaders.match(HEADER_SPLIT_REGEX);
 	let length = headers.length;
 	for(let i = 0; i < length; i++){
 		let header = headers[i].match(HEADER_REGEX);
