@@ -1,5 +1,5 @@
 const MESSAGE_PARTS_REGEX = /SAPI\s(\d\.\d)\s+((?:(?:.+)\s+)+)\s+(.+)/;
-const HEADER_REGEX = /([^:]*):\s?(.+)/;
+const HEADER_REGEX = /(^.+):\s+?(.+)/;
 const LINE_RETURN_REGEX = /\s/gm;
 
 function parseHeaders(rawHeaders){
