@@ -1,8 +1,8 @@
 const WebSocket = require('ws');
 const EventEmitter = require('events').EventEmitter;
-const SAPIMessage = require('./sapi-message.js');
+const SDMPMessage = require('./sdmp-message.js');
 
-class SAPIServer extends EventEmitter{
+class SDMPServer extends EventEmitter{
     constructor(){
         
     }

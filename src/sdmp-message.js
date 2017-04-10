@@ -1,6 +1,6 @@
 'use strict';
 
-const MESSAGE_PARTS_REGEX = /SAPI\s(\d\.\d)\s+((?:(?:.+)\s+)+)\s+(.+)/;
+const MESSAGE_PARTS_REGEX = /SDMP\s(\d\.\d)\s+((?:(?:.+)\s+)+)\s+(.+)/;
 const HEADER_SPLIT_REGEX = /^.+:\s+?.+/gm;
 const HEADER_REGEX = /(^.+):\s+?(.+)/;
 
@@ -40,7 +40,7 @@ function parseBody(rawBody, type){
 	return rawBody;
 }
 
-class SAPIMessage{
+class SDMPMessage{
 	constructor(options = {}){
 		this.version = options.version || '0.0';
 		this.default_headers = options.default_headers || {};
@@ -49,7 +49,7 @@ class SAPIMessage{
 	stringify(headers, body = ''){
 		let allHeaders = mergeObject(this.default_headers, headers);
 
-		let message = `SAPI ${this.version}\n\n`;
+		let message = `SDMP ${this.version}\n\n`;
 		for(let h in allHeaders){
 			if(allHeaders.hasOwnProperty(h)){
 				message += `${h}: ${allHeaders[h]}\n`;
@@ -78,4 +78,4 @@ class SAPIMessage{
 	}
 }
 
-exports = SAPIMessage;
+exports = SDMPMessage;
