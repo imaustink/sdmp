@@ -1,16 +1,18 @@
-(function(exports){
+'use strict';
 
 const MESSAGE_PARTS_REGEX = /SAPI\s(\d\.\d)\s+((?:(?:.+)\s+)+)\s+(.+)/;
 const HEADER_SPLIT_REGEX = /^.+:\s+?.+/gm;
 const HEADER_REGEX = /(^.+):\s+?(.+)/;
 
 function mergeObject(){
-	var out = {};
-	for(var i = 0; i < arguments.length; i++){
-		for(var j in arguments[i]){
+	let out = {};
+	for(let i = 0; i < arguments.length; i++){
+		for(let j in arguments[i]){
 			if(arguments[i].hasOwnProperty(j)){
-				var k = arguments[i][j];
-				if(typeof k === 'object' && !Array.isArray(k)) k = mergeObject(out[j], k);
+				let k = arguments[i][j];
+				if(typeof k === 'object' && k !== null && !Array.isArray(k)){
+					k = mergeObject(out[j], k);
+				}
 				out[j] = k;
 			}
 		}
@@ -38,18 +40,20 @@ function parseBody(rawBody, type){
 	return rawBody;
 }
 
-exports.SAPIMessage = class SAPIMessage{
+class SAPIMessage{
 	constructor(options = {}){
 		this.version = options.version || '0.0';
 		this.default_headers = options.default_headers || {};
 	}
 
-	stringify(headers, body){
+	stringify(headers, body = ''){
 		let allHeaders = mergeObject(this.default_headers, headers);
 
 		let message = `SAPI ${this.version}\n\n`;
 		for(let h in allHeaders){
-			message += `${h}: ${allHeaders[h]}\n`;
+			if(allHeaders.hasOwnProperty(h)){
+				message += `${h}: ${allHeaders[h]}\n`;
+			}
 		}
 		message += `\n\n${typeof body === 'object' ? JSON.stringify(body) : body}`;
 
@@ -57,6 +61,10 @@ exports.SAPIMessage = class SAPIMessage{
 	}
 
 	static parse(rawMessage){
+		if(typeof rawMessage !== 'string'){
+			throw 'This method requires a string as the first argument!';
+		}
+
 		let parts = rawMessage.match(MESSAGE_PARTS_REGEX);
 		let version = parts[1];
 		let headers = parseHeaders(parts[2]);
@@ -70,4 +78,4 @@ exports.SAPIMessage = class SAPIMessage{
 	}
 }
 
-})(window);
+exports = SAPIMessage;

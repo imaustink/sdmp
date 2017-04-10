@@ -6,7 +6,7 @@ Here is what a SAPI message looks like:
 SAPI 0.0
 
 resource: users/738061236180
-method: updateEmail
+method: getAll
 type: json
 
 {"email":"foo@example.com"}
