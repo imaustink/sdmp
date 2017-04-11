@@ -4,8 +4,7 @@ SDMP is a simple protocol designed for implementing APIs on top of streaming com
 Here is what a raw SDMP message looks like:
 
 ```
-SDMP 0.0
-
+SDMP/0.0
 resource: users/738061236180
 method: getAll
 type: json
@@ -13,11 +12,10 @@ type: json
 {"email":"foo@example.com"}
 ```
 
-A SDMP message has three main components, version, headers, and body. Each part is separated by an additional line returns and each header is separated by 1 line return. For a complete example on parsing and strinfying SDMP messages see [SDMPMessage](./src/sdmp-message.js).
+A SDMP message has three main components, version, headers, and body. The version taking the first line and delimited by a line return, each header is delimited by a line return, and the body is separated by an additional line return. For a complete example on parsing and strinfying SDMP messages see [SDMPMessage](./src/sdmp-message.js).
 
 ```
-Version | SDMP 0.0\n
---------| \n
+Version | SDMP/0.0\n
 Headers | resource: users/738061236180\n
         | method: getAll\n
         | type: json\n
