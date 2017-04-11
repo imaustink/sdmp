@@ -6,7 +6,7 @@ Here is what a raw SDMP message looks like:
 ```
 SDMP/0.0
 resource: users/738061236180
-method: getAll
+method: update
 type: json
 
 {"email":"foo@example.com"}
@@ -16,11 +16,11 @@ A SDMP message has three main components, version, headers, and body. The versio
 
 ```
 Version | SDMP/0.0\n
-Headers | resource: users/738061236180\n
-        | method: getAll\n
+Headers | resource: users\n
+        | method: create\n
         | type: json\n
 --------| \n
-Body    | {"email":"foo@example.com"}
+Body    | {"username":"foo","email":"foo@example.com"}
 ```
 
 The first two sections are required to be considered a valid SDMP message. However, only the ```type``` header is needed.
