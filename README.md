@@ -1,4 +1,6 @@
 # Streaming Data Messaging Protocol (SDMP)
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/imaustink/sdmp.svg)](https://greenkeeper.io/)
 SDMP is a simple protocol designed for implementing APIs on top of streaming communication protocols such as WebSockets or MQTT.
 
 Here is what a raw SDMP message looks like:
